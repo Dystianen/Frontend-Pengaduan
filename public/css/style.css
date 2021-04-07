@@ -8723,7 +8723,6 @@ body {
   line-height: 1.5;
   color: #222222;
   text-align: left;
-  background-color: #fff;
 }
 
 [tabindex="-1"]:focus {
@@ -10939,6 +10938,8 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 .btn:not(:disabled):not(.disabled), .fc button:not(:disabled):not(.disabled), .ajax-upload-dragdrop .ajax-file-upload:not(:disabled):not(.disabled), .swal2-modal .swal2-buttonswrapper .swal2-styled:not(:disabled):not(.disabled), .wizard > .actions a:not(:disabled):not(.disabled) {
   cursor: pointer;
+  height: fit-content;
+  margin-left: 5px;
 }
 
 .btn:not(:disabled):not(.disabled):active, .fc button:not(:disabled):not(.disabled):active, .ajax-upload-dragdrop .ajax-file-upload:not(:disabled):not(.disabled):active, .swal2-modal .swal2-buttonswrapper .swal2-styled:not(:disabled):not(.disabled):active, .wizard > .actions a:not(:disabled):not(.disabled):active, .btn:not(:disabled):not(.disabled).active, .fc button:not(:disabled):not(.disabled).active, .ajax-upload-dragdrop .ajax-file-upload:not(:disabled):not(.disabled).active, .swal2-modal .swal2-buttonswrapper .swal2-styled:not(:disabled):not(.disabled).active, .wizard > .actions a:not(:disabled):not(.disabled).active {
@@ -13226,6 +13227,7 @@ input[type="button"].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  border: 1px solid #cecece99 !important
 }
 
 .navbar > .container,
@@ -21119,11 +21121,10 @@ code {
 }
 
 .dropdown .dropdown-menu {
-  margin-top: .1rem;
-  left: 20px;
+  margin-top: .5rem;
+  margin-right: 20px;
   font-size: 0.875rem;
   box-shadow: 0px 1px 15px 1px rgba(230, 234, 236, 0.35);
-  border-radius: 0;
 }
 
 .dropdown .dropdown-menu .dropdown-item {
@@ -27043,6 +27044,12 @@ div.tagsinput span.tag a {
   margin-left: 100px;
 }
 
+.login {
+  background: #000;
+  width: 100%;
+  margin-left: 100px;
+}
+
 @media (max-width: 991.98px) {
   .main-panel {
     padding-top: 60px;
@@ -27833,7 +27840,11 @@ a[data-toggle="collapse"] {
   .btn.btn-primary:hover, .btn.btn-primary:focus {
     background: #f8b739 !important;
     border-color: #f8b739 !important; }
-
+.judul{
+  font-size: 28px;
+  color: #f8b739;
+  font-family: 'Times New Roman', Times, serif;
+}
 .bottom{
   margin-top: 100px;
 }

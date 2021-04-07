@@ -9,9 +9,7 @@ import Navbar from '../components/layouts/Navbar.vue'
 
 //ROUTE ADMIN
 import Home from '../components/admin/Home.vue'
-import Masyarakat from '../components/admin/Masyarakat.vue'
-import Pengaduan from '../components/admin/Pengaduan.vue'
-import Petugas from '../components/admin/Petugas.vue'
+import Kereta from '../components/admin/Kereta.vue'
 
 
 
@@ -28,30 +26,13 @@ const routes = [
     name: 'home',
     components: { default: Home, header: Navbar},
     meta: {
-      title: "Home",
       requiresAuth: true
     }
   },
   {
-    path: '/petugas',
-    name: 'petugas',
-    components: { default: Petugas, header: Navbar,},
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/masyarakat',
-    name: 'masyarakat',
-    components: { default: Masyarakat, header: Navbar},
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/pengaduan',
-    name: 'pengaduan',
-    components: { default: Pengaduan, header: Navbar },
+    path: '/kereta',
+    name: 'kereta',
+    components: { default: Kereta, header: Navbar,},
     meta: {
       requiresAuth: true
     }

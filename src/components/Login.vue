@@ -2,7 +2,7 @@
   <div>
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="main-panel">
+        <div class="main-panel login">
           <div class="content-wrapper d-flex align-items-center auth">
             <div class="row w-100">
               <div class="col-lg-4 mx-auto">
@@ -16,14 +16,14 @@
                   </h6>
                   <form v-on:submit.prevent="Login">
                     <b-form-group
-                      id="lbl_username"
-                      label="Username"
-                      label-for="input_username"
+                      id="lbl_email"
+                      label="Email"
+                      label-for="input_email"
                     >
                       <b-form-input
-                        id="input_username"
-                        v-model="username"
-                        placeholder="Alamat username"
+                        id="input_email"
+                        v-model="email"
+                        placeholder="Alamat email"
                         trim
                       ></b-form-input>
                     </b-form-group>
@@ -45,78 +45,13 @@
                     <b-button variant="secondary" block type="submit"
                       >Login
                     </b-button>
-                    <h6 class="font-weight-light">
-                      <a v-b-modal.modalRegister v-on:click="Add"
-                        >Anda belum mempunyai akun petugas?</a
-                      >
-                    </h6>
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <b-modal id="modalRegister" @ok="Save">
-          <template v-slot:modal-title> Form Register </template>
-          <form ref="form">
-            <div class="form-group">
-              <label for="nik" class="col-form-label">NIK</label>
-              <input
-                type="number"
-                name="nik"
-                class="form-control"
-                id="nik"
-                placeholder="nik"
-                v-model="nik"
-              />
-            </div>
-            <div class="form-group">
-              <label for="nama" class="col-form-label">Nama</label>
-              <input
-                type="text"
-                name="nama"
-                class="form-control"
-                id="nama"
-                placeholder="name"
-                v-model="nama"
-              />
-            </div>
-            <div class="form-group">
-              <label for="username" class="col-form-label">Username</label>
-              <input
-                type="text"
-                name="username"
-                class="form-control"
-                id="username"
-                placeholder="username"
-                v-model="username"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password" class="col-form-label">Password</label>
-              <input
-                type="password"
-                name="password"
-                class="form-control"
-                id="password"
-                placeholder="password"
-                v-model="password"
-              />
-            </div>
-            <div class="form-group">
-              <label for="telp" class="col-form-label">Telepon</label>
-              <input
-                type="integer"
-                name="telp"
-                class="form-control"
-                id="telp"
-                placeholder="telepon"
-                v-model="telp"
-              />
-            </div>
-          </form>
-        </b-modal>
+        
         <!-- content-wrapper ends -->
       </div>
       <b-toast id="loadingToast" title="Processing Data" no-auto-hide>
@@ -136,9 +71,9 @@ export default {
     return {
       id: "",
       nik: "",
-      nama: "",
-      telp: "",
-      username: "",
+      name: "",
+      phone_number: "",
+      email: "",
       password: "",
       message: "",
     };
@@ -146,12 +81,12 @@ export default {
   methods: {
     Login: function () {
       this.$bvToast.show("loadingToast");
-      let username = this.username;
+      let email = this.email;
       let password = this.password;
       this.$store
-        .dispatch("login", { username, password })
+        .dispatch("login", { email, password })
         .then((response) => {
-          localStorage.setItem('nama', response.data.data.user.nama);
+          localStorage.setItem('nama', response.data.data.user.name);
           this.message = response.data.message;
           this.$bvToast.hide("loadingToast");
           this.$bvToast.show("message");
@@ -163,11 +98,11 @@ export default {
     Add: function () {
       this.action = "insert";
       this.nik = "";
-      this.nama = "";
-      this.username = "";
+      this.name = "";
+      this.email = "";
       this.password = "";
-      this.telp = "";
-      this.level = "";
+      this.phone_number = "";
+      this.role = "";
     },
 
     Save : function(){
@@ -176,12 +111,12 @@ export default {
         let form = new FormData();
         form.append("id", this.id);
         form.append("nik", this.nik);
-        form.append("nama", this.nama);
-        form.append("username", this.username);
+        form.append("name", this.name);
+        form.append("email", this.email);
         form.append("password", this.password);
-        form.append("telp", this.telp);
+        form.append("phone_number", this.phone_number);
 
-        this.axios.post("/registerPetugas", form)
+        this.axios.post("/register", form)
         .then(response => {
           this.$bvToast.hide("loadingToast");
           this.$router.push('/login')
@@ -194,10 +129,10 @@ export default {
       } else {
         let form = {
           nik: this.nik,
-          nama: this.nama,
-          username: this.username,
+          name: this.name,
+          email: this.email,
           password: this.password,
-          telp: this.telp,
+          phone_number: this.phone_number,
         }
         this.axios.put("/login" + this.id, form)
         .then(response => {
