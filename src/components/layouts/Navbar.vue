@@ -50,9 +50,7 @@
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">
         <div class="p-4 pt-5">
-          <!-- <a href="#" class="img logo rounded-circle mb-5">
-            <img src="" id="sidebar" class="logo">
-          </a> -->
+          <h1 class="judul">TRIPKET</h1>
           <ul class="list-unstyled components mb-5">
             <li class="nav-item">
               <router-link to="/" class="nav-link">
@@ -61,29 +59,29 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'petugas' }" class="nav-link">
-                <i class="mdi mdi-account-settings menu-icon"></i>
-                <span class="menu-title"> Petugas</span>
-              </router-link>
-            </li>
-            <li class="nav-item">
               <router-link :to="{ name: 'masyarakat' }" class="nav-link">
-                <i class="mdi mdi-account-card-details menu-icon"></i>
+                <i class="mdi mdi-account-settings menu-icon"></i>
                 <span class="menu-title"> Masyarakat</span>
               </router-link>
             </li>
-            <li></li>
             <li class="nav-item">
-              <router-link :to="{ name: 'pengaduan' }" class="nav-link">
-                <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                <span class="menu-title"> Pengaduan</span>
+              <router-link :to="{ name: 'kereta' }" class="nav-link">
+                <i class="mdi mdi-account-settings menu-icon"></i>
+                <span class="menu-title"> Kereta</span>
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'riwayat' }" class="nav-link">
+                <i class="mdi mdi-account-settings menu-icon"></i>
+                <span class="menu-title"> Riwayat Transaksi</span>
+              </router-link>
+            </li>
+
             <li>
               <p class="bottom">
                 Copyright &copy; All rights reserved | This template is made
-                with <i class="icon-heart" aria-hidden="true"></i> by
-                @dystian_en
+                with <i class="icon-heart" aria-hidden="true"></i> by Trip'n
+                kets
               </p>
             </li>
           </ul>
@@ -92,7 +90,7 @@
     </div>
 
     <div id="content1" class="p-4 p-md-5">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <button
             class="btn btn-dark d-inline-block d-lg-none ml-auto"
@@ -115,7 +113,7 @@
                   data-toggle="dropdown"
                   id="profileDropdown"
                 >
-                  Hallo, {{ nama }}
+                  Hallo, {{ name }}
                 </a>
                 <div
                   class="dropdown-menu dropdown-menu-right navbar-dropdown"
@@ -125,24 +123,27 @@
                     <i class="mdi mdi-logout text-primary"></i>
                     Logout
                   </span>
+                  <!-- <span @click="updatePassword" class="dropdown-item">
+                    <i class="mdi mdi-account-key text-primary"></i>
+                    Ubah Password
+                  </span> -->
                 </div>
               </li>
             </ul>
+
             <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Portfolio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
+              <form class="d-flex">
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-dark" type="submit">
+                  Search
+                </button>
+              </form>
             </ul>
-            
           </div>
         </div>
       </nav>
@@ -154,7 +155,7 @@
 export default {
   data: function () {
     return {
-      nama: "",
+      name: "",
     };
   },
   // name: "navbar",
@@ -162,11 +163,11 @@ export default {
     isLoggedIn: function () {
       return this.$store.getters.isLoggedIn;
     },
-    username: function () {
+    email: function () {
       return this.$store.getters.userDetail.name;
     },
-    level: function () {
-      return this.$store.getters.userDetail.level;
+    role: function () {
+      return this.$store.getters.userDetail.role;
     },
   },
   methods: {
@@ -179,7 +180,7 @@ export default {
       this.axios
         .post("/logout", conf)
         .then((response) => {
-          if (response.data.success === false || response.data.status === 0) {
+          if (response.data.status === false) {
             this.$store.commit("logout");
             localStorage.removeItem("Authorization");
             this.$router.push("/login");
@@ -191,7 +192,7 @@ export default {
     },
   },
   mounted() {
-    this.nama = localStorage.getItem("nama");
+    this.name = localStorage.getItem("name");
   },
 };
 </script>

@@ -45,8 +45,9 @@ new Vue({
         let conf = { headers: { "Authorization": "Bearer " + localStorage.getItem("Authorization") } };
         this.axios.get("/login/check", conf)
           .then(response => {
-            if (response.data.success == false) {
+            if (response.data.status == false) {
               this.$store.commit('logout')
+              router.push('login')
             } else {
               this.$store.commit('userDetail', response.data.data.user)
             }
