@@ -299,7 +299,7 @@ module.exports = {
           departure: this.departure,
           till: this.till,
         };
-        this.axios.put("transportation/" + this.id_transportation, form, conf)
+        this.axios.put("/transportation/" + this.id_transportation, form, conf)
           .then((response) => {
             this.$bvToast.hide("loadingToast");
             if (this.search == "") {

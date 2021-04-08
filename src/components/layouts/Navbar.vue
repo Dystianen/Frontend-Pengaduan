@@ -59,16 +59,29 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link :to="{ name: 'masyarakat' }" class="nav-link">
+                <i class="mdi mdi-account-settings menu-icon"></i>
+                <span class="menu-title"> Masyarakat</span>
+              </router-link>
+            </li>
+            <li class="nav-item">
               <router-link :to="{ name: 'kereta' }" class="nav-link">
                 <i class="mdi mdi-account-settings menu-icon"></i>
                 <span class="menu-title"> Kereta</span>
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'riwayat' }" class="nav-link">
+                <i class="mdi mdi-account-settings menu-icon"></i>
+                <span class="menu-title"> Riwayat Transaksi</span>
+              </router-link>
+            </li>
+
             <li>
               <p class="bottom">
                 Copyright &copy; All rights reserved | This template is made
-                with <i class="icon-heart" aria-hidden="true"></i> by
-                Trip'n kets
+                with <i class="icon-heart" aria-hidden="true"></i> by Trip'n
+                kets
               </p>
             </li>
           </ul>
@@ -100,7 +113,7 @@
                   data-toggle="dropdown"
                   id="profileDropdown"
                 >
-                  Hallo, {{ nama }}
+                  Hallo, {{ name }}
                 </a>
                 <div
                   class="dropdown-menu dropdown-menu-right navbar-dropdown"
@@ -151,7 +164,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     email: function () {
-      return this.$store.getters.userDetail.email;
+      return this.$store.getters.userDetail.name;
     },
     role: function () {
       return this.$store.getters.userDetail.role;

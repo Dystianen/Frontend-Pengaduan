@@ -86,7 +86,7 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then((response) => {
-          localStorage.setItem('nama', response.data.data.user.name);
+          localStorage.setItem('name', response.data.data.user.name);
           this.message = response.data.message;
           this.$bvToast.hide("loadingToast");
           this.$bvToast.show("message");

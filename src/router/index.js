@@ -9,7 +9,9 @@ import Navbar from '../components/layouts/Navbar.vue'
 
 //ROUTE ADMIN
 import Home from '../components/admin/Home.vue'
+import Masyarakat from '../components/admin/Masyarakat.vue'
 import Kereta from '../components/admin/Kereta.vue'
+import Riwayat from '../components/admin/Riwayat.vue'
 
 
 
@@ -30,9 +32,25 @@ const routes = [
     }
   },
   {
+    path: '/masyarakat',
+    name: 'masyarakat',
+    components: { default: Masyarakat, header: Navbar},
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/kereta',
     name: 'kereta',
     components: { default: Kereta, header: Navbar,},
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/riwayat',
+    name: 'riwayat',
+    components: { default: Riwayat, header: Navbar},
     meta: {
       requiresAuth: true
     }
