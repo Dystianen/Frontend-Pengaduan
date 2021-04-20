@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="row">
-      <div class="col-md-6 col-lg-6 grid-margin stretch-card">
+      <div class="col-md-6 grid-margin stretch-card">
         <div class="row">
           <div class="col-sm-6">
             <div class="card">
@@ -106,9 +106,9 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    name: "home",
-  },
-};
+// export default {
+//   methods: {
+//     name: "home",
+//   },
+// };
 </script>

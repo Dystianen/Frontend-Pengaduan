@@ -2,20 +2,21 @@
   <div>
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="main-panel login">
+        <div class="login">
           <div class="content-wrapper d-flex align-items-center auth">
             <div class="row w-100">
               <div class="col-lg-4 mx-auto">
-                <div class="auth-form-light text-left p-5">
-                  <!-- <div class="navbar-brand brand-logo">
-                        <img src="../assets/logo.png" style="width: 100px">
-                      </div> -->
-                  <h4>Selamat datang!</h4>
+                <div class="auth-form-light  p-4" style="border-radius: 3%; background-color: brown; margin-left: -15%; margin-right: 20%">
+                  <div class="navbar-brand brand-logo">
+                        <img src="../../public/logo.png" style="width: 100px;">
+                  </div>
+                  <!-- <h4 class="text-warning">Selamat datang!</h4>
                   <h6 class="font-weight-light">
                     Silahkan login terlebih dahulu
-                  </h6>
+                  </h6> -->
                   <form v-on:submit.prevent="Login">
                     <b-form-group
+                      class="text-white text-center"
                       id="lbl_username"
                       label="Username"
                       label-for="input_username"
@@ -24,11 +25,13 @@
                         id="input_username"
                         v-model="username"
                         placeholder="Alamat username"
+                        class="text-white"
                         trim
                       ></b-form-input>
                     </b-form-group>
 
                     <b-form-group
+                      class="text-white text-center"
                       id="lbl_password"
                       label="Password"
                       label-for="input_password"
@@ -38,11 +41,12 @@
                         id="input_password"
                         v-model="password"
                         placeholder="Kata sandi"
+                        class="text-white"
                         trim
                       ></b-form-input>
                     </b-form-group>
 
-                    <b-button variant="secondary" block type="submit"
+                    <b-button variant="warning" block type="submit"
                       >Login
                     </b-button>
                   </form>

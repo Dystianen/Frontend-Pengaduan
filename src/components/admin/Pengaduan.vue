@@ -296,6 +296,7 @@ export default {
         "tanggal",
         "laporan",
         "foto",
+        "tanggapan",
         "kategori",
         "status",
         "Aksi",
@@ -416,11 +417,11 @@ export default {
         .post("/pengaduan/tanggapan", form, conf)
         .then((response) => {
           if (response.data.success) {
+            this.pengaduan = response.data.data.pengaduan;
+            this.rows = response.data.data.count;
             this.$bvToast.hide("loadingToast");
             this.message = "Tanggapan berhasil ditambahkan";
             this.$bvToast.show("message");
-            this.pengaduan = response.data.data.pengaduan;
-            this.rows = response.data.data.count;
             this.getTanggapan();
           } else {
             this.$bvToast.hide("loadingToast");

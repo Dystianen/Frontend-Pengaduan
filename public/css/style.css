@@ -9238,8 +9238,15 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto;
+  /* margin-left: -100px; */
 }
+/* .container-login {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+} */
 
 .row {
   display: flex;
@@ -26985,7 +26992,8 @@ div.tagsinput span.tag a {
 }
 
 .auth .brand-logo {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 35%;
 }
 
 .auth .brand-logo img {
@@ -27045,9 +27053,10 @@ div.tagsinput span.tag a {
 }
 
 .login {
-  background: #000;
+  background-color: white;
   width: 100%;
-  margin-left: 100px;
+  position: relative;
+  /* margin-left: 100px; */
 }
 
 @media (max-width: 991.98px) {

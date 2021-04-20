@@ -79,9 +79,7 @@
             </li>
             <li>
               <p class="bottom">
-                Copyright &copy; All rights reserved | This template is made
-                with <i class="icon-heart" aria-hidden="true"></i> by
-                @dystian_en
+                Copyright &copy; All rights reserved | by @dystian_en
               </p>
             </li>
           </ul>
