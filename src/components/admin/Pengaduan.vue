@@ -9,7 +9,9 @@
               <div class="table-responsive">
                 <b-table striped hover :items="pengaduan" :fields="fields">
                   <template v-slot:cell(status)="data">
-                    <b-badge variant="dark" style="text-transform: uppercase;">{{ data.item.status }}</b-badge>
+                    <b-badge variant="dark" style="text-transform: uppercase">{{
+                      data.item.status
+                    }}</b-badge>
                   </template>
 
                   <template v-slot:cell(id)="data">
@@ -29,9 +31,11 @@
                   </template>
 
                   <template v-slot:cell(kategori)="data">
-                    <b-badge variant="warning" style="text-transform: uppercase;">{{
-                      data.item.kategori.nama_kategori
-                    }}</b-badge>
+                    <b-badge
+                      variant="warning"
+                      style="text-transform: uppercase"
+                      >{{ data.item.kategori.nama_kategori }}</b-badge
+                    >
                   </template>
                   <template v-slot:cell(tanggapan)="data">
                     {{
@@ -98,7 +102,7 @@
                   >
                     <section slot="pdf-content">
                       <div class="invoice-box">
-                        <table style="width: 100%; ">
+                        <table style="width: 100%">
                           <tr class="top">
                             <td colspan="2">
                               <table>
@@ -116,7 +120,7 @@
                                     <br />
                                     kategori :
                                     {{ reportKategori.nama_kategori }} <br />
-                                   
+
                                     {{ report.created_at | formatDate }}
                                   </td>
                                 </tr>
@@ -202,8 +206,10 @@
                         v-model="status"
                         aria-placeholder="terkirim"
                       >
-                        <option value="terkirim" disabled selected>Terkirim</option>
-                        <option value="proses" >Proses</option>
+                        <option value="terkirim" disabled selected>
+                          Terkirim
+                        </option>
+                        <option value="proses">Proses</option>
                         <option value="selesai">Selesai</option>
                       </select>
                     </div>
@@ -374,13 +380,15 @@ export default {
       form.append("id_pengaduan", this.id_pengaduan);
       form.append("tgl_pengaduan", this.tgl_pengaduan);
       form.append("status", this.status);
-      form.append("tanggapan", this.tanggapan);
+      // form.append("tanggapan", this.tanggapan);
 
       this.axios
         .post("/pengaduan/status", form, conf)
         .then((response) => {
           if (response.data.success) {
             this.$bvToast.hide("loadingToast");
+            this.message = "Status berhasil diupdate";
+            this.$bvToast.show("message");
             this.pengaduan = response.data.data.pengaduan;
             this.rows = response.data.data.count;
             this.getData();
@@ -388,7 +396,7 @@ export default {
             this.$bvToast.hide("loadingToast");
             this.message = "Gagal menampilkan data petugas.";
             this.$bvToast.show("message");
-            // this.$router.push({ name: "login" });
+            this.$router.push({ name: "login" });
           }
         })
         .catch((error) => {
@@ -409,12 +417,14 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.$bvToast.hide("loadingToast");
+            this.message = "Tanggapan berhasil ditambahkan";
+            this.$bvToast.show("message");
             this.pengaduan = response.data.data.pengaduan;
             this.rows = response.data.data.count;
             this.getTanggapan();
           } else {
             this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data petugas.";
+            this.message = "Gagal mengajukan tanggapan";
             this.$bvToast.show("message");
             this.$router.push({ name: "login" });
           }
@@ -456,10 +466,9 @@ export default {
             this.reportKategori = response.data.data.pengaduan[0].kategori;
             this.rows = response.data.data.count;
             this.$refs.html2Pdf.generatePdf();
-            // this.getData();
           } else {
             this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data petugas.";
+            this.message = "Gagal menampilkan data laporan.";
             this.$bvToast.show("message");
             this.$router.push({ name: "login" });
           }
@@ -510,7 +519,7 @@ body a {
   max-width: 800px;
   margin: auto;
   padding: 30px;
-  border: 1px solid #eee;
+  border: 1px solid #000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   font-size: 16px;
   line-height: 24px;

@@ -50,9 +50,7 @@
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">
         <div class="p-4 pt-5">
-          <!-- <a href="#" class="img logo rounded-circle mb-5">
-            <img src="" id="sidebar" class="logo">
-          </a> -->
+          <h1 class="judul">Pengaduan</h1>
           <ul class="list-unstyled components mb-5">
             <li class="nav-item">
               <router-link to="/" class="nav-link">
@@ -92,7 +90,7 @@
     </div>
 
     <div id="content1" class="p-4 p-md-5">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <button
             class="btn btn-dark d-inline-block d-lg-none ml-auto"
@@ -125,24 +123,27 @@
                     <i class="mdi mdi-logout text-primary"></i>
                     Logout
                   </span>
+                  <!-- <span @click="updatePassword" class="dropdown-item">
+                    <i class="mdi mdi-account-key text-primary"></i>
+                    Ubah Password
+                  </span> -->
                 </div>
               </li>
             </ul>
+
             <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Portfolio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
+              <form class="d-flex">
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-dark" type="submit">
+                  Search
+                </button>
+              </form>
             </ul>
-            
           </div>
         </div>
       </nav>

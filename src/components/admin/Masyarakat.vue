@@ -10,7 +10,8 @@
                 <b-button variant="success" v-b-modal.modalTatib v-on:click="Add"><i class="mdi mdi-plus btn-icon-prepend"></i> Tambah</b-button>
               </p> -->
               <div class="table-responsive">
-                <b-table striped hover :items="user" :fields="fields">
+                <b-table 
+                 hover :items="user" :fields="fields">
                   <template v-slot:cell(level)="data">
                     <b-badge variant="warning">{{ data.item.level }}</b-badge>
                   </template>

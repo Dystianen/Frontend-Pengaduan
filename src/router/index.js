@@ -28,7 +28,6 @@ const routes = [
     name: 'home',
     components: { default: Home, header: Navbar},
     meta: {
-      title: "Home",
       requiresAuth: true
     }
   },
