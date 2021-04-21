@@ -6,9 +6,18 @@
           <div class="content-wrapper d-flex align-items-center auth">
             <div class="row w-100">
               <div class="col-lg-4 mx-auto">
-                <div class="auth-form-light  p-4" style="border-radius: 3%; background-color: brown; margin-left: -15%; margin-right: 20%">
+                <div
+                  class="auth-form-light p-4"
+                  style="
+                    border-radius: 3%;
+                    background-color: brown;
+                    margin-left: -15%;
+                    margin-right: 20%;
+                    text-align: center;
+                  "
+                >
                   <div class="navbar-brand brand-logo">
-                        <img src="../../public/logo.png" style="width: 100px;">
+                    <img src="../../public/logo.png" style="width: 100px" />
                   </div>
                   <!-- <h4 class="text-warning">Selamat datang!</h4>
                   <h6 class="font-weight-light">
@@ -55,7 +64,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- content-wrapper ends -->
       </div>
       <b-toast id="loadingToast" title="Processing Data" no-auto-hide>
@@ -90,7 +99,7 @@ export default {
       this.$store
         .dispatch("login", { username, password })
         .then((response) => {
-          localStorage.setItem('nama', response.data.data.user.nama);
+          localStorage.setItem("nama", response.data.data.user.nama);
           this.message = response.data.message;
           this.$bvToast.hide("loadingToast");
           this.$bvToast.show("message");
@@ -109,9 +118,9 @@ export default {
       this.level = "";
     },
 
-    Save : function(){
+    Save: function () {
       this.$bvToast.show("loadingToast");
-      if(this.action === "insert"){
+      if (this.action === "insert") {
         let form = new FormData();
         form.append("id", this.id);
         form.append("nik", this.nik);
@@ -120,16 +129,17 @@ export default {
         form.append("password", this.password);
         form.append("telp", this.telp);
 
-        this.axios.post("/registerPetugas", form)
-        .then(response => {
-          this.$bvToast.hide("loadingToast");
-          this.$router.push('/login')
-          this.message = response.data.message;
-          this.$bvToast.show("message");
-        })  
-        .catch(error => {
-          console.log(error);
-        });
+        this.axios
+          .post("/registerPetugas", form)
+          .then((response) => {
+            this.$bvToast.hide("loadingToast");
+            this.$router.push("/login");
+            this.message = response.data.message;
+            this.$bvToast.show("message");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         let form = {
           nik: this.nik,
@@ -137,21 +147,22 @@ export default {
           username: this.username,
           password: this.password,
           telp: this.telp,
-        }
-        this.axios.put("/login" + this.id, form)
-        .then(response => {
-          this.$bvToast.hide("loadingToast");
-          if(this.search == ""){
-            this.getData();
-          } else {
-            this.searching();
-          }
-          this.message = response.data.message;
-          this.$bvToast.show("message");
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        };
+        this.axios
+          .put("/login" + this.id, form)
+          .then((response) => {
+            this.$bvToast.hide("loadingToast");
+            if (this.search == "") {
+              this.getData();
+            } else {
+              this.searching();
+            }
+            this.message = response.data.message;
+            this.$bvToast.show("message");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
   },

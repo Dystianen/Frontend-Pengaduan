@@ -12,6 +12,7 @@ import Home from '../components/admin/Home.vue'
 import Masyarakat from '../components/admin/Masyarakat.vue'
 import Pengaduan from '../components/admin/Pengaduan.vue'
 import Petugas from '../components/admin/Petugas.vue'
+import Detail from '../components/admin/Detail.vue'
 
 
 
@@ -51,6 +52,14 @@ const routes = [
     path: '/pengaduan',
     name: 'pengaduan',
     components: { default: Pengaduan, header: Navbar },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/detail:id_pengaduan',
+    name: 'detail',
+    components: { default: Detail, header: Navbar },
     meta: {
       requiresAuth: true
     }

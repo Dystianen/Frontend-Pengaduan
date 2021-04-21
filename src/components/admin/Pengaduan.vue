@@ -6,6 +6,9 @@
           <div class="card">
             <div class="card-body">
               <p class="card-title float-left"><b>Data Pengaduan</b></p>
+              <pre>
+                {{ report }}
+              </pre>
               <div class="table-responsive">
                 <b-table striped hover :items="pengaduan" :fields="fields">
                   <template v-slot:cell(status)="data">
@@ -81,6 +84,16 @@
                       Laporan</b-button
                     >
                   </template>
+                  <template v-slot:cell(detail)="data">
+                    <b-button
+                      size="sm"
+                      variant="danger"
+                      @click="Detail(data.item.id_pengaduan)"
+                      to="/detail"
+                      ><i class="mdi mdi-file-document btn-icon-prepend"></i>
+                      detail</b-button
+                    >
+                  </template>
                 </b-table>
 
                 <div>
@@ -106,6 +119,7 @@
                           <tr class="top">
                             <td colspan="2">
                               <table>
+                                <pre>{{report}}</pre>
                                 <tr>
                                   <td class="title">
                                     <img
@@ -114,7 +128,7 @@
                                       style="width: 100%; max-width: 150px"
                                     />
                                   </td>
-
+                                  
                                   <td>
                                     Invoice #: {{ report.isi_laporan }}<br />
                                     <br />
@@ -279,6 +293,7 @@ export default {
       status: "",
       tanggapan: "",
       action: "",
+      detail: "",
       message: "",
       currentPage: 1,
       rows: 0,
@@ -294,12 +309,13 @@ export default {
         "id",
         "masyarakat",
         "tanggal",
-        "laporan",
+        // "laporan",
         "foto",
-        "tanggapan",
+        // "tanggapan",
         "kategori",
         "status",
         "Aksi",
+        "detail",
       ],
     };
   },
@@ -328,6 +344,30 @@ export default {
           console.log(error.response);
         });
     },
+
+    Detail(id_pengaduan) {
+      let conf = { headers: { Authorization: "Bearer " + this.key } };
+      this.$bvToast.show("loadingToast");
+      this.axios
+        .get("/pengaduan/" + id_pengaduan, conf)
+        .then((response) => {
+          if (response.data.success) {
+            this.$bvToast.hide("loadingToast");
+            this.pengaduan = response.data.data.pengaduan[0];
+            this.user = response.data.data.pengaduan[0].user;
+            this.rows = response.data.data.count;
+          } else {
+            this.$bvToast.hide("loadingToast");
+            this.message = "Gagal menampilkan detail pengaduan.";
+            this.$bvToast.show("message");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        this.$router.push({name: 'detail', params: {id_pengaduan:id_pengaduan}})
+    },
+
     getTanggapan: function () {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
       let offset = (this.currentPage - 1) * this.perPage;
@@ -395,7 +435,7 @@ export default {
             this.getData();
           } else {
             this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data petugas.";
+            this.message = "Gagal update status";
             this.$bvToast.show("message");
             this.$router.push({ name: "login" });
           }
@@ -453,15 +493,15 @@ export default {
       }
     },
 
-    generateReport(id) {
+    generateReport(id_pengaduan) {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
       this.$bvToast.show("loadingToast");
       this.axios
-        .get("/pengaduan/" + id, conf)
+        .get("/pengaduan/" + id_pengaduan, conf)
         .then((response) => {
           if (response.data.success) {
             this.$bvToast.hide("loadingToast");
-            this.report = response.data.data.pengaduan[0];
+            this.report = response.data.data.pengaduan;
             this.reportUser = response.data.data.pengaduan[0].user;
             this.reportTanggapan = response.data.data.pengaduan[0].tanggapan;
             this.reportKategori = response.data.data.pengaduan[0].kategori;
