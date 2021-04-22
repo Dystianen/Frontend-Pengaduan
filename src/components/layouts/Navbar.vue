@@ -129,7 +129,7 @@
               </li>
             </ul>
 
-            <ul class="nav navbar-nav ml-auto">
+            <!-- <ul class="nav navbar-nav ml-auto">
               <form class="d-flex">
                 <input
                   class="form-control me-2"
@@ -141,7 +141,7 @@
                   Search
                 </button>
               </form>
-            </ul>
+            </ul> -->
           </div>
         </div>
       </nav>

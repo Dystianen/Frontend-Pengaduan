@@ -5,16 +5,15 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <p class="card-title float-left"><b>Data Pengaduan</b></p>
-              <pre>
-                {{ report }}
-              </pre>
+              <p class="card-title float-left text-warning"><b>Data Pengaduan</b></p>
               <div class="table-responsive">
                 <b-table striped hover :items="pengaduan" :fields="fields">
                   <template v-slot:cell(status)="data">
-                    <b-badge variant="dark" style="text-transform: uppercase">{{
-                      data.item.status
-                    }}</b-badge>
+                    <b-badge
+                      variant="warning"
+                      style="text-transform: uppercase"
+                      >{{ data.item.status }}</b-badge
+                    >
                   </template>
 
                   <template v-slot:cell(id)="data">
@@ -53,46 +52,44 @@
                       :src="'http://localhost:8000/uploads/' + data.item.foto"
                     />
                   </template>
-                  <template v-slot:cell(Aksi)="data">
-                    <b-button
-                      size="sm"
-                      variant="info"
-                      v-on:click="Edit(data.item)"
-                      v-b-modal.modalStatus
-                      ><i
-                        class="mdi mdi-checkbox-marked-circle-outline btn-icon-prepend"
-                      ></i>
-                      Status</b-button
-                    >&nbsp; <br />
-                    <br />
-                    <b-button
-                      size="sm"
-                      variant="success"
-                      v-on:click="insertTanggapan(data.item)"
-                      v-b-modal.modalTanggapan
-                      placeholder="tanggapan"
-                      ><i class="mdi mdi-pencil btn-icon-prepend"></i>
-                      Tanggapan</b-button
-                    >
-                    &nbsp; <br />
-                    <br />
-                    <b-button
-                      size="sm"
-                      variant="danger"
-                      @click="generateReport(data.item.id_pengaduan)"
-                      ><i class="mdi mdi-file-document btn-icon-prepend"></i>
-                      Laporan</b-button
-                    >
-                  </template>
-                  <template v-slot:cell(detail)="data">
-                    <b-button
-                      size="sm"
-                      variant="danger"
+                  <template v-slot:cell(action)="data">
+                    <button
+                      type="button"
+                      class="btn btn-link text-dark"
                       @click="Detail(data.item.id_pengaduan)"
                       to="/detail"
-                      ><i class="mdi mdi-file-document btn-icon-prepend"></i>
-                      detail</b-button
                     >
+                      <i class="mdi mdi-details btn-icon-prepend"></i>
+                      detail</button
+                    ><br />
+                    <button
+                      type="button"
+                      class="btn btn-link text-dark"
+                      v-on:click="Edit(data.item)"
+                      v-b-modal.modalStatus
+                    >
+                      <i
+                        class="mdi mdi-checkbox-marked-circle-outline btn-icon-prepend"
+                      ></i>
+                      Status</button
+                    ><br />
+                    <button
+                      type="button"
+                      class="btn btn-link text-dark"
+                      @click="generateReport(data.item.id_pengaduan)"
+                    >
+                      <i class="mdi mdi-file-document btn-icon-prepend"></i>
+                      Report
+                    </button>
+                    <br />
+                    <button
+                      type="button"
+                      class="btn btn-link text-dark"
+                      v-on:click="insertTanggapan(data.item)"
+                      v-b-modal.modalTanggapan
+                    >
+                      <i class="mdi mdi-pencil btn-icon-prepend"></i> Response
+                    </button>
                   </template>
                 </b-table>
 
@@ -119,16 +116,15 @@
                           <tr class="top">
                             <td colspan="2">
                               <table>
-                                <pre>{{report}}</pre>
                                 <tr>
                                   <td class="title">
                                     <img
-                                      src="../../../public/logo.png"
+                                      src="../../../public/12.png"
                                       alt="Company logo"
                                       style="width: 100%; max-width: 150px"
                                     />
                                   </td>
-                                  
+
                                   <td>
                                     Invoice #: {{ report.isi_laporan }}<br />
                                     <br />
@@ -314,8 +310,7 @@ export default {
         // "tanggapan",
         "kategori",
         "status",
-        "Aksi",
-        "detail",
+        "action",
       ],
     };
   },
@@ -365,7 +360,10 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-        this.$router.push({name: 'detail', params: {id_pengaduan:id_pengaduan}})
+      this.$router.push({
+        name: "detail",
+        params: { id_pengaduan: id_pengaduan },
+      });
     },
 
     getTanggapan: function () {
@@ -463,6 +461,7 @@ export default {
             this.message = "Tanggapan berhasil ditambahkan";
             this.$bvToast.show("message");
             this.getTanggapan();
+            this.getData();
           } else {
             this.$bvToast.hide("loadingToast");
             this.message = "Gagal mengajukan tanggapan";
@@ -501,7 +500,7 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.$bvToast.hide("loadingToast");
-            this.report = response.data.data.pengaduan;
+            this.report = response.data.data.pengaduan[0];
             this.reportUser = response.data.data.pengaduan[0].user;
             this.reportTanggapan = response.data.data.pengaduan[0].tanggapan;
             this.reportKategori = response.data.data.pengaduan[0].kategori;
@@ -589,7 +588,7 @@ body a {
 }
 
 .invoice-box table tr.top table td.title {
-  font-size: 45px;
+  font-size: 50px;
   line-height: 45px;
   color: #333;
 }

@@ -10,14 +10,14 @@
                   class="auth-form-light p-4"
                   style="
                     border-radius: 3%;
-                    background-color: brown;
+                    background-color: #d8000f;
                     margin-left: -15%;
                     margin-right: 20%;
                     text-align: center;
                   "
                 >
                   <div class="navbar-brand brand-logo">
-                    <img src="../../public/logo.png" style="width: 100px" />
+                    <img src="../../public/yh.png" style="width: 150px" />
                   </div>
                   <!-- <h4 class="text-warning">Selamat datang!</h4>
                   <h6 class="font-weight-light">
@@ -34,7 +34,6 @@
                         id="input_username"
                         v-model="username"
                         placeholder="Alamat username"
-                        class="text-white"
                         trim
                       ></b-form-input>
                     </b-form-group>
@@ -50,12 +49,11 @@
                         id="input_password"
                         v-model="password"
                         placeholder="Kata sandi"
-                        class="text-white"
                         trim
                       ></b-form-input>
                     </b-form-group>
 
-                    <b-button variant="warning" block type="submit"
+                    <b-button block type="submit" class="btn btn-warning btn-sm"
                       >Login
                     </b-button>
                   </form>
@@ -99,11 +97,18 @@ export default {
       this.$store
         .dispatch("login", { username, password })
         .then((response) => {
+          if(response.data.success){
           localStorage.setItem("nama", response.data.data.user.nama);
-          this.message = response.data.message;
           this.$bvToast.hide("loadingToast");
+          this.message = response.data.message;
           this.$bvToast.show("message");
           this.$router.push("/");
+        }else {
+            this.$bvToast.hide("loadingToast");
+            this.message = "email atau password anda salah";
+            this.$bvToast.show("message");
+            this.$router.push({ name: "login" });
+          }
         })
         .catch((err) => console.log(err));
     },

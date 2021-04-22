@@ -8,7 +8,7 @@
               <p class="card-title float-left"><b>Data Petugas</b></p>
               <p class="card-description float-right">
                 <b-button
-                  variant="success"
+                  class="btn btn-success btn-sm"
                   v-b-modal.modalTatib
                   v-on:click="Add"
                   ><i class="mdi mdi-plus btn-icon-prepend"></i>
@@ -22,14 +22,14 @@
                   </template>
                   <template v-slot:cell(action)="data">
                     <b-button
-                      variant="info"
+                      class="btn btn-info btn-sm"
                       v-b-modal.modalTatib
                       v-on:click="Edit(data.item)"
                       ><i class="mdi mdi-pencil"></i> Update</b-button
                     >
                     <br />
                     <br />
-                    <b-button variant="danger" @click="Drop(data.item.id)"
+                    <b-button class="btn btn-danger btn-sm" @click="Drop(data.item.id)"
                       ><i class="mdi mdi-delete"></i> Delete
                     </b-button>
                   </template>
