@@ -24,38 +24,15 @@
                     Silahkan login terlebih dahulu
                   </h6> -->
                   <form v-on:submit.prevent="Login">
-                    <b-form-group
-                      class="text-white text-center"
-                      id="lbl_username"
-                      label="Username"
-                      label-for="input_username"
-                    >
-                      <b-form-input
-                        id="input_username"
-                        v-model="username"
-                        placeholder="Alamat username"
-                        trim
-                      ></b-form-input>
+                    <b-form-group class="text-white text-center" id="lbl_username" label="Username" label-for="input_username">
+                      <b-form-input id="input_username" v-model="username" placeholder="Alamat username" trim></b-form-input>
                     </b-form-group>
 
-                    <b-form-group
-                      class="text-white text-center"
-                      id="lbl_password"
-                      label="Password"
-                      label-for="input_password"
-                    >
-                      <b-form-input
-                        type="password"
-                        id="input_password"
-                        v-model="password"
-                        placeholder="Kata sandi"
-                        trim
-                      ></b-form-input>
+                    <b-form-group class="text-white text-center" id="lbl_password" label="Password" label-for="input_password">
+                      <b-form-input type="password" id="input_password" v-model="password" placeholder="Kata sandi" trim></b-form-input>
                     </b-form-group>
 
-                    <b-button block type="submit" class="btn btn-warning btn-sm"
-                      >Login
-                    </b-button>
+                    <b-button block type="submit" class="btn btn-warning btn-sm">Login </b-button>
                   </form>
                 </div>
               </div>
@@ -80,67 +57,67 @@
 export default {
   data() {
     return {
-      id: "",
-      nik: "",
-      nama: "",
-      telp: "",
-      username: "",
-      password: "",
-      message: "",
+      id: '',
+      nik: '',
+      nama: '',
+      telp: '',
+      username: '',
+      password: '',
+      message: '',
     };
   },
   methods: {
-    Login: function () {
-      this.$bvToast.show("loadingToast");
+    Login: function() {
+      this.$bvToast.show('loadingToast');
       let username = this.username;
       let password = this.password;
       this.$store
-        .dispatch("login", { username, password })
+        .dispatch('login', { username, password })
         .then((response) => {
-          if(response.data.success){
-          localStorage.setItem("nama", response.data.data.user.nama);
-          this.$bvToast.hide("loadingToast");
-          this.message = response.data.message;
-          this.$bvToast.show("message");
-          this.$router.push("/");
-        }else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "email atau password anda salah";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+          if (response.data.success) {
+            localStorage.setItem('nama', response.data.data.user.nama);
+            this.$bvToast.hide('loadingToast');
+            this.message = response.data.message;
+            this.$bvToast.show('message');
+            this.$router.push('/petugas');
+          } else {
+            this.$bvToast.hide('loadingToast');
+            this.message = 'email atau password anda salah';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((err) => console.log(err));
     },
 
-    Add: function () {
-      this.action = "insert";
-      this.nik = "";
-      this.nama = "";
-      this.username = "";
-      this.password = "";
-      this.telp = "";
-      this.level = "";
+    Add: function() {
+      this.action = 'insert';
+      this.nik = '';
+      this.nama = '';
+      this.username = '';
+      this.password = '';
+      this.telp = '';
+      this.level = '';
     },
 
-    Save: function () {
-      this.$bvToast.show("loadingToast");
-      if (this.action === "insert") {
+    Save: function() {
+      this.$bvToast.show('loadingToast');
+      if (this.action === 'insert') {
         let form = new FormData();
-        form.append("id", this.id);
-        form.append("nik", this.nik);
-        form.append("nama", this.nama);
-        form.append("username", this.username);
-        form.append("password", this.password);
-        form.append("telp", this.telp);
+        form.append('id', this.id);
+        form.append('nik', this.nik);
+        form.append('nama', this.nama);
+        form.append('username', this.username);
+        form.append('password', this.password);
+        form.append('telp', this.telp);
 
         this.axios
-          .post("/registerPetugas", form)
+          .post('/registerPetugas', form)
           .then((response) => {
-            this.$bvToast.hide("loadingToast");
-            this.$router.push("/login");
+            this.$bvToast.hide('loadingToast');
+            this.$router.push('/login');
             this.message = response.data.message;
-            this.$bvToast.show("message");
+            this.$bvToast.show('message');
           })
           .catch((error) => {
             console.log(error);
@@ -154,16 +131,16 @@ export default {
           telp: this.telp,
         };
         this.axios
-          .put("/login" + this.id, form)
+          .put('/login' + this.id, form)
           .then((response) => {
-            this.$bvToast.hide("loadingToast");
-            if (this.search == "") {
+            this.$bvToast.hide('loadingToast');
+            if (this.search == '') {
               this.getData();
             } else {
               this.searching();
             }
             this.message = response.data.message;
-            this.$bvToast.show("message");
+            this.$bvToast.show('message');
           })
           .catch((error) => {
             console.log(error);

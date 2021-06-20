@@ -5,15 +5,10 @@
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card mt-5">
             <div class="card-body">
-              <img
-                style="width: 100%; height: auto; border-radius: 5%"
-                :src="'http://localhost:8000/uploads/' + pengaduan.foto"
-              />
+              <img style="width: 100%; height: auto; border-radius: 5%" :src="'http://localhost:8000/uploads/' + pengaduan.foto" />
               <div class="row">
                 <div class="col-6 float-left">
-                  <h6 class="mt-5">
-                    Tanggal Pengaduan : {{ pengaduan.tgl_pengaduan }}
-                  </h6>
+                  <h6 class="mt-5">Tanggal Pengaduan : {{ pengaduan.tgl_pengaduan }}</h6>
                   <h6>Nama Masyarakat : {{ user.nama }}</h6>
                   <h6>
                     Status :
@@ -32,7 +27,7 @@
                 {{ pengaduan.isi_laporan }}
               </h6>
               <div class="float-right">
-                <router-link to="/pengaduan" class="nav-link">
+                <router-link to="/pengaduan" class="nav-link text-warning" style="font-size: 22px">
                   <i class="mdi mdi-skip-backward"></i>
                   <span class="menu-title"> back</span>
                 </router-link>
@@ -56,64 +51,63 @@
 
 <script>
 module.exports = {
-  data: function () {
+  data: function() {
     return {
-      search: "",
+      search: '',
       id_pengaduan: this.$route.params.id_pengaduan,
-      nama: "",
-      tgl_pengaduan: "",
-      isi_laporan: "",
-      foto: "",
-      status: "",
-      tanggapan: "",
-      id_kategori: "",
-      action: "",
-      message: "",
-      pagination: "",
+      nama: '',
+      tgl_pengaduan: '',
+      isi_laporan: '',
+      foto: '',
+      status: '',
+      tanggapan: '',
+      id_kategori: '',
+      action: '',
+      message: '',
+      pagination: '',
       currentPage: 1,
       rows: 0,
       perPage: 10,
-      key: "",
+      key: '',
       user: [],
       pengaduan: [],
       kategori: [],
       fields: [
-        "tanggal",
+        'tanggal',
         // "laporan",
-        "kategori",
-        "status",
+        'kategori',
+        'status',
       ],
     };
   },
 
   methods: {
     getData() {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      this.$bvToast.show("loadingToast");
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      this.$bvToast.show('loadingToast');
       console.log(this.id_pengaduan);
       this.axios
-        .get("pengaduan/" + this.id_pengaduan, conf)
+        .get('pengaduan/' + this.id_pengaduan, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.pengaduan = response.data.data.pengaduan[0];
             this.user = response.data.data.pengaduan[0].user;
             this.tanggapan = response.data.data.pengaduan.tanggapan;
             this.rows = response.data.data.count;
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data Pengaduan.";
-            this.$bvToast.show("message");
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal menampilkan data Pengaduan.';
+            this.$bvToast.show('message');
           }
         })
         .catch((error) => {
           console.log(error);
         });
     },
-
   },
   mounted() {
-    this.key = localStorage.getItem("Authorization");
+    this.key = localStorage.getItem('Authorization');
     this.getData();
   },
 };

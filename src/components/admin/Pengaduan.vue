@@ -7,13 +7,9 @@
             <div class="card-body">
               <p class="card-title float-left text-warning"><b>Data Pengaduan</b></p>
               <div class="table-responsive">
-                <b-table striped hover :items="pengaduan" :fields="fields">
+                <b-table striped hover :items="pengaduan" :fields="fields" style="font-size: 24px">
                   <template v-slot:cell(status)="data">
-                    <b-badge
-                      variant="warning"
-                      style="text-transform: uppercase"
-                      >{{ data.item.status }}</b-badge
-                    >
+                    {{ data.item.status }}
                   </template>
 
                   <template v-slot:cell(id)="data">
@@ -33,63 +29,27 @@
                   </template>
 
                   <template v-slot:cell(kategori)="data">
-                    <b-badge
-                      variant="warning"
-                      style="text-transform: uppercase"
-                      >{{ data.item.kategori.nama_kategori }}</b-badge
-                    >
+                    {{ data.item.kategori.nama_kategori }}
                   </template>
                   <template v-slot:cell(tanggapan)="data">
-                    {{
-                      data.item.tanggapan !== null
-                        ? data.item.tanggapan.tanggapan
-                        : null
-                    }}
+                    {{ data.item.tanggapan !== null ? data.item.tanggapan.tanggapan : null }}
                   </template>
                   <template v-slot:cell(foto)="data">
-                    <img
-                      style="width: 200px; height: 100px; border-radius: 5%"
-                      :src="'http://localhost:8000/uploads/' + data.item.foto"
-                    />
+                    <img style="width: 200px; height: 100px; border-radius: 5%" :src="'http://localhost:8000/uploads/' + data.item.foto" />
                   </template>
                   <template v-slot:cell(action)="data">
-                    <button
-                      type="button"
-                      class="btn btn-link text-dark"
-                      @click="Detail(data.item.id_pengaduan)"
-                      to="/detail"
-                    >
-                      <i class="mdi mdi-details btn-icon-prepend"></i>
-                      detail</button
-                    ><br />
-                    <button
-                      type="button"
-                      class="btn btn-link text-dark"
-                      v-on:click="Edit(data.item)"
-                      v-b-modal.modalStatus
-                    >
-                      <i
-                        class="mdi mdi-checkbox-marked-circle-outline btn-icon-prepend"
-                      ></i>
-                      Status</button
-                    ><br />
-                    <button
-                      type="button"
-                      class="btn btn-link text-dark"
-                      @click="generateReport(data.item.id_pengaduan)"
-                    >
-                      <i class="mdi mdi-file-document btn-icon-prepend"></i>
-                      Report
-                    </button>
-                    <br />
-                    <button
-                      type="button"
-                      class="btn btn-link text-dark"
-                      v-on:click="insertTanggapan(data.item)"
-                      v-b-modal.modalTanggapan
-                    >
-                      <i class="mdi mdi-pencil btn-icon-prepend"></i> Response
-                    </button>
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                      <button type="button" class="btn btn-link text-dark" @click="Detail(data.item.id_pengaduan)" to="/detail">
+                        <i class="mdi mdi-eye btn-icon-prepend"></i>
+                      </button>
+                      <button type="button" class="btn btn-link text-dark" v-on:click="Edit(data.item)" v-b-modal.modalStatus>
+                        <i class="mdi mdi-checkbox-marked-circle-outline btn-icon-prepend"></i>
+                      </button>
+                      <button type="button" class="btn btn-link text-dark" @click="generateReport(data.item.id_pengaduan)">
+                        <i class="mdi mdi-file-document btn-icon-prepend"></i>
+                      </button>
+                      <button type="button" class="btn btn-link text-dark" v-on:click="insertTanggapan(data.item)" v-b-modal.modalTanggapan><i class="mdi mdi-pencil btn-icon-prepend"></i></button>
+                    </div>
                   </template>
                 </b-table>
 
@@ -118,11 +78,7 @@
                               <table>
                                 <tr>
                                   <td class="title">
-                                    <img
-                                      src="../../../public/12.png"
-                                      alt="Company logo"
-                                      style="width: 100%; max-width: 150px"
-                                    />
+                                    <img src="../../../public/12.png" alt="Company logo" style="width: 100%; max-width: 150px" />
                                   </td>
 
                                   <td>
@@ -190,10 +146,7 @@
                                     height: 100px;
                                     border-radius: 10%;
                                   "
-                                  :src="
-                                    'http://localhost:8000/uploads/' +
-                                    report.foto
-                                  "
+                                  :src="'http://localhost:8000/uploads/' + report.foto"
                                 />
                               </td>
                             </tr>
@@ -209,13 +162,7 @@
                   <form ref="form">
                     <div class="form-group">
                       <label for="status" class="col-form-label">Status</label>
-                      <select
-                        class="form-control"
-                        name="status"
-                        id="status"
-                        v-model="status"
-                        aria-placeholder="terkirim"
-                      >
+                      <select class="form-control" name="status" id="status" v-model="status" aria-placeholder="terkirim">
                         <option value="terkirim" disabled selected>
                           Terkirim
                         </option>
@@ -230,29 +177,12 @@
                   <template v-slot:modal-title> Form Tanggapan </template>
                   <form ref="form">
                     <div class="form-group">
-                      <label for="tanggapan" class="col-form-label"
-                        >Tanggapan</label
-                      >
-                      <textarea
-                        class="form-control"
-                        id="tanggapan"
-                        name="tanggapan"
-                        rows="3"
-                        placeholder=""
-                        type="text"
-                        v-model="tanggapan"
-                      ></textarea>
+                      <label for="tanggapan" class="col-form-label">Tanggapan</label>
+                      <textarea class="form-control" id="tanggapan" name="tanggapan" rows="3" placeholder="" type="text" v-model="tanggapan"></textarea>
                     </div>
                   </form>
                 </b-modal>
-                <b-pagination
-                  v-model="currentPage"
-                  :per-page="perPage"
-                  :total-rows="rows"
-                  align="center"
-                  v-on:input="pagination"
-                >
-                </b-pagination>
+                <b-pagination v-model="currentPage" :per-page="perPage" :total-rows="rows" align="center" v-on:input="pagination"> </b-pagination>
 
                 <b-toast id="loadingToast" title="Processing Data" no-auto-hide>
                   <b-spinner label="Spinning" variant="secondary"></b-spinner>
@@ -273,66 +203,56 @@
 </template>
 
 <script>
-import VueHtml2pdf from "vue-html2pdf";
+import VueHtml2pdf from 'vue-html2pdf';
 
 export default {
-  data: function () {
+  data: function() {
     return {
-      search: "",
-      id_pengaduan: "",
-      id_user: "",
-      id_tanggapan: "",
-      id_kategori: "",
-      tgl_pengaduan: "",
-      isi_laporan: "",
-      foto: "",
-      status: "",
-      tanggapan: "",
-      action: "",
-      detail: "",
-      message: "",
+      search: '',
+      id_pengaduan: '',
+      id_user: '',
+      id_tanggapan: '',
+      id_kategori: '',
+      tgl_pengaduan: '',
+      isi_laporan: '',
+      foto: '',
+      status: '',
+      tanggapan: '',
+      action: '',
+      detail: '',
+      message: '',
       currentPage: 1,
       rows: 0,
       perPage: 10,
-      key: "",
-      report: "",
-      reportUser: "",
-      reportTanggapan: "",
-      reportKategori: "",
+      key: '',
+      report: '',
+      reportUser: '',
+      reportTanggapan: '',
+      reportKategori: '',
       user: [],
       pengaduan: [],
-      fields: [
-        "id",
-        "masyarakat",
-        "tanggal",
-        // "laporan",
-        "foto",
-        // "tanggapan",
-        "kategori",
-        "status",
-        "action",
-      ],
+      fields: ['id', 'masyarakat', 'tanggal', 'kategori', 'status', 'action'],
     };
   },
 
   methods: {
     getData() {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
       let offset = (this.currentPage - 1) * this.perPage;
-      this.$bvToast.show("loadingToast");
+      this.$bvToast.show('loadingToast');
       this.axios
-        .get("/pengaduan/" + this.perPage + "/" + offset, conf)
+        .get('/pengaduan/' + this.perPage + '/' + offset, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.pengaduan = response.data.data.pengaduan;
             this.pengaduanNama = response.data.data.pengaduan[0].nama;
             this.rows = response.data.data.count;
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data Pengaduan.";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal menampilkan data Pengaduan.';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((error) => {
@@ -341,47 +261,47 @@ export default {
     },
 
     Detail(id_pengaduan) {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      this.$bvToast.show("loadingToast");
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      this.$bvToast.show('loadingToast');
       this.axios
-        .get("/pengaduan/" + id_pengaduan, conf)
+        .get('/pengaduan/' + id_pengaduan, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.pengaduan = response.data.data.pengaduan[0];
             this.user = response.data.data.pengaduan[0].user;
             this.rows = response.data.data.count;
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan detail pengaduan.";
-            this.$bvToast.show("message");
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal menampilkan detail pengaduan.';
+            this.$bvToast.show('message');
           }
         })
         .catch((error) => {
           console.log(error);
         });
       this.$router.push({
-        name: "detail",
+        name: 'detail',
         params: { id_pengaduan: id_pengaduan },
       });
     },
 
-    getTanggapan: function () {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
+    getTanggapan: function() {
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
       let offset = (this.currentPage - 1) * this.perPage;
-      this.$bvToast.show("loadingToast");
+      this.$bvToast.show('loadingToast');
       this.axios
-        .get("/masyarakat/" + this.perPage + "/" + offset, conf)
+        .get('/masyarakat/' + this.perPage + '/' + offset, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.pengaduan = response.data.data.pengaduan;
             this.rows = response.data.data.count;
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data Pengaduan.";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal menampilkan data Pengaduan.';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((error) => {
@@ -389,53 +309,53 @@ export default {
         });
     },
 
-    pagination: function () {
-      if (this.search == "") {
+    pagination: function() {
+      if (this.search == '') {
         this.getData();
       } else {
         this.searching();
       }
     },
 
-    Edit: function (item) {
-      this.action = "update";
+    Edit: function(item) {
+      this.action = 'update';
       this.id_pengaduan = item.id_pengaduan;
       this.tgl_pengaduan = item.tgl_pengaduan;
       this.status = item.status;
       this.tanggapan = item.tanggapan;
     },
 
-    insertTanggapan: function (item) {
-      this.action = "insert";
+    insertTanggapan: function(item) {
+      this.action = 'insert';
       this.id_pengaduan = item.id_pengaduan;
-      this.tanggapan = " ";
+      this.tanggapan = ' ';
     },
 
-    Status: function () {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      this.$bvToast.show("loadingToast");
-      this.action === "update";
+    Status: function() {
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      this.$bvToast.show('loadingToast');
+      this.action === 'update';
       let form = new FormData();
-      form.append("id_pengaduan", this.id_pengaduan);
-      form.append("tgl_pengaduan", this.tgl_pengaduan);
-      form.append("status", this.status);
+      form.append('id_pengaduan', this.id_pengaduan);
+      form.append('tgl_pengaduan', this.tgl_pengaduan);
+      form.append('status', this.status);
       // form.append("tanggapan", this.tanggapan);
 
       this.axios
-        .post("/pengaduan/status", form, conf)
+        .post('/pengaduan/status', form, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Status berhasil diupdate";
-            this.$bvToast.show("message");
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Status berhasil diupdate';
+            this.$bvToast.show('message');
             this.pengaduan = response.data.data.pengaduan;
             this.rows = response.data.data.count;
             this.getData();
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal update status";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal update status';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((error) => {
@@ -443,30 +363,30 @@ export default {
         });
     },
 
-    Tanggapan: function () {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      this.$bvToast.show("loadingToast");
-      this.action === "insert";
+    Tanggapan: function() {
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      this.$bvToast.show('loadingToast');
+      this.action === 'insert';
       let form = new FormData();
-      form.append("id_pengaduan", this.id_pengaduan);
-      form.append("tanggapan", this.tanggapan);
+      form.append('id_pengaduan', this.id_pengaduan);
+      form.append('tanggapan', this.tanggapan);
 
       this.axios
-        .post("/pengaduan/tanggapan", form, conf)
+        .post('/pengaduan/tanggapan', form, conf)
         .then((response) => {
           if (response.data.success) {
             this.pengaduan = response.data.data.pengaduan;
             this.rows = response.data.data.count;
-            this.$bvToast.hide("loadingToast");
-            this.message = "Tanggapan berhasil ditambahkan";
-            this.$bvToast.show("message");
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Tanggapan berhasil ditambahkan';
+            this.$bvToast.show('message');
             this.getTanggapan();
             this.getData();
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal mengajukan tanggapan";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal mengajukan tanggapan';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((error) => {
@@ -474,17 +394,17 @@ export default {
         });
     },
 
-    Drop: function (id) {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      if (confirm("Apakah anda yakin ingin menghapus data ini?")) {
-        this.$bvToast.show("loadingToast");
+    Drop: function(id) {
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
+        this.$bvToast.show('loadingToast');
         this.axios
-          .delete("/petugas/" + id, conf)
+          .delete('/petugas/' + id, conf)
           .then((response) => {
             this.getData();
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.message = response.data.message;
-            this.$bvToast.show("message");
+            this.$bvToast.show('message');
           })
           .catch((error) => {
             console.log(error);
@@ -493,13 +413,13 @@ export default {
     },
 
     generateReport(id_pengaduan) {
-      let conf = { headers: { Authorization: "Bearer " + this.key } };
-      this.$bvToast.show("loadingToast");
+      let conf = { headers: { Authorization: 'Bearer ' + this.key } };
+      this.$bvToast.show('loadingToast');
       this.axios
-        .get("/pengaduan/" + id_pengaduan, conf)
+        .get('/pengaduan/' + id_pengaduan, conf)
         .then((response) => {
           if (response.data.success) {
-            this.$bvToast.hide("loadingToast");
+            this.$bvToast.hide('loadingToast');
             this.report = response.data.data.pengaduan[0];
             this.reportUser = response.data.data.pengaduan[0].user;
             this.reportTanggapan = response.data.data.pengaduan[0].tanggapan;
@@ -507,10 +427,10 @@ export default {
             this.rows = response.data.data.count;
             this.$refs.html2Pdf.generatePdf();
           } else {
-            this.$bvToast.hide("loadingToast");
-            this.message = "Gagal menampilkan data laporan.";
-            this.$bvToast.show("message");
-            this.$router.push({ name: "login" });
+            this.$bvToast.hide('loadingToast');
+            this.message = 'Gagal menampilkan data laporan.';
+            this.$bvToast.show('message');
+            this.$router.push({ name: 'login' });
           }
         })
         .catch((error) => {
@@ -519,7 +439,7 @@ export default {
     },
   },
   mounted() {
-    this.key = localStorage.getItem("Authorization");
+    this.key = localStorage.getItem('Authorization');
     this.getData();
   },
 
@@ -531,7 +451,7 @@ export default {
 
 <style scoped>
 body {
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
   text-align: center;
   color: #777;
 }
@@ -563,7 +483,7 @@ body a {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   font-size: 16px;
   line-height: 24px;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
   color: #555;
 }
 

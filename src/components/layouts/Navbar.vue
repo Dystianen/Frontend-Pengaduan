@@ -52,12 +52,12 @@
         <div class="p-4 pt-5">
           <h1 class="judul">Pengaduan</h1>
           <ul class="list-unstyled components mb-5">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/" class="nav-link">
                 <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
                 <span class="menu-title"> Beranda</span>
               </router-link>
-            </li>
+            </li> -->
             <li class="nav-item">
               <router-link :to="{ name: 'petugas' }" class="nav-link">
                 <i class="mdi mdi-account-settings menu-icon"></i>
@@ -90,33 +90,15 @@
     <div id="content1" class="p-4 p-md-5">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-          <button
-            class="btn btn-dark d-inline-block d-lg-none ml-auto"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav navbar-nav-left">
               <li class="nav-item nav-profile dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  id="profileDropdown"
-                >
-                  Hallo, {{ nama }}
-                </a>
-                <div
-                  class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                  aria-labelledby="profileDropdown"
-                >
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"> Hallo, {{ nama }} </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                   <span @click="logout" class="dropdown-item">
                     <i class="mdi mdi-logout text-primary"></i>
                     Logout
@@ -151,46 +133,46 @@
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
-      nama: "",
+      nama: '',
     };
   },
   // name: "navbar",
   computed: {
-    isLoggedIn: function () {
+    isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
-    username: function () {
+    username: function() {
       return this.$store.getters.userDetail.name;
     },
-    level: function () {
+    level: function() {
       return this.$store.getters.userDetail.level;
     },
   },
   methods: {
-    logout: function () {
+    logout: function() {
       let conf = {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("Authorization"),
+          Authorization: 'Bearer ' + localStorage.getItem('Authorization'),
         },
       };
       this.axios
-        .post("/logout", conf)
+        .post('/logout', conf)
         .then((response) => {
           if (response.data.success === false || response.data.status === 0) {
-            this.$store.commit("logout");
-            localStorage.removeItem("Authorization");
-            this.$router.push("/login");
+            this.$store.commit('logout');
+            localStorage.removeItem('Authorization');
+            this.$router.push('/login');
           }
         })
         .catch((error) => {
-          this.$store.commit(error, "logout");
+          this.$store.commit(error, 'logout');
         });
     },
   },
   mounted() {
-    this.nama = localStorage.getItem("nama");
+    this.nama = localStorage.getItem('nama');
   },
 };
 </script>
